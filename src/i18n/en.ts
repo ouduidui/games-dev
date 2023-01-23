@@ -1,3 +1,4 @@
 export default {
-  home_title: 'GAME',
+  minesweeper: 'MINESWEEPER',
+  sudoku: 'SUDOKU',
 }

@@ -1,3 +1,4 @@
 export default {
-  home_title: '干甚',
+  minesweeper: '扫雷',
+  sudoku: '数独',
 }

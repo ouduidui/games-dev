@@ -12,6 +12,12 @@ export default defineConfig({
   resolve: {
     alias: {
       '~/': `${path.resolve(__dirname, 'src')}/`,
+      'constants/': `${path.resolve(__dirname, 'src/constants')}/`,
+      'components/': `${path.resolve(__dirname, 'src/components')}/`,
+      'hooks/': `${path.resolve(__dirname, 'src/hooks')}/`,
+      'i18n/': `${path.resolve(__dirname, 'src/i18n')}/`,
+      'pages/': `${path.resolve(__dirname, 'src/pages')}/`,
+      'stores/': `${path.resolve(__dirname, 'src/stores')}/`,
     },
   },
   plugins: [
