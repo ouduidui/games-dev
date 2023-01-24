@@ -1,8 +1,8 @@
 import { t } from '~/i18n'
 
 export const GAMES_CMD = [
-  { label: t('minesweeper'), iconCls: 'i-arcticons-antimine' },
-  { label: t('sudoku'), iconCls: 'i-arcticons-sudokuoss' },
+  { id: 'minesweeper', label: t('minesweeper'), iconCls: 'i-arcticons-antimine' },
+  { id: 'sudoku', label: t('sudoku'), iconCls: 'i-arcticons-sudokuoss' },
 ]
 
 export enum KEY_CODE {

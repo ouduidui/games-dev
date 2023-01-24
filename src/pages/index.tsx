@@ -4,6 +4,7 @@ import { GAMES_CMD, KEY_CODE } from '~/constants'
 
 export default () => {
   const [activeIndex, setActiveIndex] = useState(0)
+  const navigate = useNavigate()
 
   const handleArrowChange = (nextIndex: number) => {
     const lastIndex = GAMES_CMD.length - 1
@@ -28,16 +29,19 @@ export default () => {
     }
   })
 
-  const handleOnClick = () => {}
+  const handleOnClick = (ops: (typeof GAMES_CMD)[number]) => {
+    const { id } = ops
+    navigate(`/${id}`)
+  }
 
   const renderNav = () => {
     return GAMES_CMD.map((game, idx) => {
       const isActive = activeIndex === idx
       return (
         <div
-          key={idx}
+          key={game.id}
           onMouseEnter={() => setActiveIndex(idx)}
-          onClick={handleOnClick}
+          onClick={() => handleOnClick(game)}
           className={classnames('flex', 'items-center', 'justify-center', 'cursor-pointer', 'mb-3', {
             'op-70': !isActive,
             'op-100': isActive,
