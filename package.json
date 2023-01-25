@@ -32,6 +32,7 @@
     "@antfu/eslint-config": "^0.34.1",
     "@iconify-json/arcticons": "^1.1.39",
     "@iconify-json/carbon": "^1.1.14",
+    "@iconify-json/mdi": "^1.1.44",
     "@types/node": "^18.11.18",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",

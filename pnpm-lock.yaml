@@ -4,6 +4,7 @@ specifiers:
   '@antfu/eslint-config': ^0.34.1
   '@iconify-json/arcticons': ^1.1.39
   '@iconify-json/carbon': ^1.1.14
+  '@iconify-json/mdi': ^1.1.44
   '@types/node': ^18.11.18
   '@types/react': ^18.0.27
   '@types/react-dom': ^18.0.10
@@ -42,6 +43,7 @@ devDependencies:
   '@antfu/eslint-config': 0.34.1_7uibuqfxkfaozanbtbziikiqje
   '@iconify-json/arcticons': 1.1.39
   '@iconify-json/carbon': 1.1.14
+  '@iconify-json/mdi': 1.1.44
   '@types/node': 18.11.18
   '@types/react': 18.0.27
   '@types/react-dom': 18.0.10
@@ -664,6 +666,12 @@ packages:
     resolution: {integrity: sha512-Md5Vh3x2ALI5shFHlqZQBpEBk0coZf8bcFqzZBqf3bZuUTDg78y9vkwhQ+0PF1Q3wmZIfwkSJU9Pf6V228pXxw==}
     dependencies:
       '@iconify/types': 1.1.0
+    dev: true
+
+  /@iconify-json/mdi/1.1.44:
+    resolution: {integrity: sha512-Apg9JY3jzWUTNiDWVBo7pD0WUAxdgoDhqr+X5TF1X6kVmM6U4Uo+Fo9dFaf4Qfwfsbt23zp2BHiaV1h1Hqm31g==}
+    dependencies:
+      '@iconify/types': 2.0.0
     dev: true
 
   /@iconify/types/1.1.0:
