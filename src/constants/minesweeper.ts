@@ -1,4 +1,4 @@
-export const IS_MINESWEEPER_DEV = true
+export const IS_MINESWEEPER_DEV = false
 
 export enum MINESWEEPER_ITEM_TYPE {
   INITIAL,
@@ -9,7 +9,8 @@ export enum MINESWEEPER_ITEM_TYPE {
 
 export enum MINESWEEPER_GAME_STATUS {
   NOT_START,
+  FIRST_STEP,
   INPROGRESS,
   WIN,
-  FAIL,
+  LOSE,
 }

@@ -5,7 +5,8 @@ import type { MINESWEEPER_ITEM_NUMBER, MinesweeperItemState } from '~/types/mine
 import { IS_MINESWEEPER_DEV, MINESWEEPER_ITEM_TYPE } from '~/constants/minesweeper'
 
 interface Props {
-  item: MinesweeperItemState
+  row: number
+  col: number
   update: (newBlock: MinesweeperItemState) => void
 }
 
@@ -21,8 +22,10 @@ type RenderItemFnOption = {
 }
 
 export default memo(forwardRef<MinesweeperItemRef, Props>((props, ref) => {
-  const { item, update: updateCallback } = props
-  const [itemState, setItemState] = useState(item)
+  const { row, col, update: updateCallback } = props
+  const [itemState, setItemState] = useState(
+    minesweeperControllerPC.getMinisweeperItem(row, col),
+  )
 
   const updateItem = (newBlock: MinesweeperItemState) => setItemState(newBlock)
 
@@ -36,10 +39,10 @@ export default memo(forwardRef<MinesweeperItemRef, Props>((props, ref) => {
     if (leftOrRight === CLICK_BUTTON.RIGHT)
       e.preventDefault()
 
-    const newBlock = minesweeperControllerPC.handleBlockClick(item, leftOrRight)
+    const newBlock = minesweeperControllerPC.handleBlockClick(itemState, leftOrRight)
     if (newBlock) {
       updateItem(newBlock)
-      updateCallback(newBlock)
+      updateCallback({ ...newBlock })
     }
   }
 
