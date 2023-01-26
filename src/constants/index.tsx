@@ -1,5 +1,7 @@
 import { t } from '~/i18n'
 
+export const IS_DEV = true
+
 export const GAMES_CMD = [
   { id: 'minesweeper', label: t('minesweeper'), iconCls: 'i-arcticons-antimine' },
   { id: 'sudoku', label: t('sudoku'), iconCls: 'i-arcticons-sudokuoss' },
@@ -12,4 +14,9 @@ export enum KEY_CODE {
   ARROW_LEFT = 'ArrowLeft',
   ARROW_RIGHT = 'ArrowRight',
   ENTER = 'Enter',
+}
+
+export enum CLICK_BUTTON {
+  LEFT,
+  RIGHT,
 }

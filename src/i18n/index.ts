@@ -1,5 +1,4 @@
 import type { InitOptions } from 'i18next'
-import i18n from 'i18next'
 import en from './en'
 import cn from './cn'
 
