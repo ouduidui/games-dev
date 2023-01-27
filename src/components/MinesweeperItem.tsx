@@ -8,6 +8,7 @@ interface Props {
   row: number
   col: number
   update: (newBlock: MinesweeperItemState) => void
+  isInProgress: boolean
 }
 
 export interface MinesweeperItemRef {
@@ -22,7 +23,7 @@ type RenderItemFnOption = {
 }
 
 export default memo(forwardRef<MinesweeperItemRef, Props>((props, ref) => {
-  const { row, col, update: updateCallback } = props
+  const { row, col, isInProgress, update: updateCallback } = props
   const [itemState, setItemState] = useState(
     minesweeperControllerPC.getMinisweeperItem(row, col),
   )
@@ -36,6 +37,9 @@ export default memo(forwardRef<MinesweeperItemRef, Props>((props, ref) => {
   })
 
   const handleOnClick = (e: React.MouseEvent, leftOrRight: CLICK_BUTTON) => {
+    if (!isInProgress)
+      return
+
     if (leftOrRight === CLICK_BUTTON.RIGHT)
       e.preventDefault()
 
@@ -50,8 +54,8 @@ export default memo(forwardRef<MinesweeperItemRef, Props>((props, ref) => {
     return (
       <div
         className={classnames('p-1', 'select-none', 'cursor-pointer', {
-          'bg-gray-300 dark:bg-gray-500': type === MINESWEEPER_ITEM_TYPE.INITIAL,
-          'hover:bg-gray-400 dark:hover:bg-gray-400': type !== MINESWEEPER_ITEM_TYPE.MINE,
+          'bg-gray-300 dark:bg-gray-500': isInProgress && type === MINESWEEPER_ITEM_TYPE.INITIAL,
+          'hover:bg-gray-400 dark:hover:bg-gray-400': isInProgress && type !== MINESWEEPER_ITEM_TYPE.MINE,
         })}
         onClick={e => handleOnClick(e, CLICK_BUTTON.LEFT)}
         onContextMenu={e => handleOnClick(e, CLICK_BUTTON.RIGHT)}
@@ -63,19 +67,26 @@ export default memo(forwardRef<MinesweeperItemRef, Props>((props, ref) => {
 
   const renderItem = (ops: RenderItemFnOption) => {
     const { type } = ops
+    const commonCls = classnames('text w-1.25rem h-1.25rem', {
+      'op-0': !isInProgress,
+    })
+    let cls = ''
+    let children: JSX.Element | null = null
     switch (type) {
       case MINESWEEPER_ITEM_TYPE.FLAG:
-        return renderItemContainer(<div className='text w-1.25rem h-1.25rem i-mdi-flag color-emerald' />, type)
+        cls = 'i-mdi-flag color-emerald'
+        break
       case MINESWEEPER_ITEM_TYPE.MINE:
-        return renderItemContainer(<div className='text w-1.25rem h-1.25rem i-mdi-mine color-rose' />, type)
+        cls = 'i-mdi-mine color-rose'
+        break
       case MINESWEEPER_ITEM_TYPE.INITIAL:
-        return renderItemContainer(<div className='text w-1.25rem h-1.25rem' />, type)
+        break
       case MINESWEEPER_ITEM_TYPE.NUMBER:
-        return renderItemContainer(
-          <div className='text font-mono w-1.25rem h-1.25rem leading-5 op-70'>{ops.num !== 0 && ops.num}</div>,
-          type,
-        )
+        ops.num !== 0 && (children = <>{ops.num}</>)
+        cls = 'font-mono leading-5 op-70'
     }
+
+    return renderItemContainer(<div className={classnames(commonCls, cls)}>{children}</div>, type)
   }
 
   if (IS_MINESWEEPER_DEV)
