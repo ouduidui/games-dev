@@ -20,21 +20,31 @@ export default () => {
   const timerRef = useRef<TimerRef>(null)
 
   const updateMinesweeperBox = (newBlock: MinesweeperItemState) => {
-    const { needExpend, expendItems, remainMines: newRemainMines, status } = minesweeperControllerPC.check(newBlock)
-    if (status === MINESWEEPER_GAME_STATUS.WIN) {
-      alert('win')
-    }
-    else if (status === MINESWEEPER_GAME_STATUS.LOSE) {
-      alert('game over')
+    if (minesweeperControllerPC.gameStatus === MINESWEEPER_GAME_STATUS.NOT_START) {
+      const box = minesweeperControllerPC.generateMinesweeper({ x: newBlock.row, y: newBlock.col })
+      box.forEach((row, i) => {
+        row.forEach((item, j) => {
+          itemRefs.current[`${i}-${j}`]?.updateItem({ ...item })
+        })
+      })
     }
     else {
-      if (needExpend) {
-        expendItems.forEach((item) => {
-          itemRefs.current[`${item.row}-${item.col}`]?.updateItem(item)
-        })
+      const { needExpend, expendItems, remainMines: newRemainMines, status } = minesweeperControllerPC.check(newBlock)
+      if (status === MINESWEEPER_GAME_STATUS.WIN) {
+        alert('win')
       }
-      if (newRemainMines !== remainMines)
-        setRemainMines(newRemainMines)
+      else if (status === MINESWEEPER_GAME_STATUS.LOSE) {
+        alert('game over')
+      }
+      else {
+        if (needExpend) {
+          expendItems.forEach((item) => {
+            itemRefs.current[`${item.row}-${item.col}`]?.updateItem(item)
+          })
+        }
+        if (newRemainMines !== remainMines)
+          setRemainMines(newRemainMines)
+      }
     }
   }
 

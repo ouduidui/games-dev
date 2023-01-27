@@ -2,7 +2,7 @@ import classnames from 'classnames'
 import { CLICK_BUTTON } from '~/constants'
 import { minesweeperControllerPC } from '~/pages/minesweeper'
 import type { MINESWEEPER_ITEM_NUMBER, MinesweeperItemState } from '~/types/minesweeper'
-import { IS_MINESWEEPER_DEV, MINESWEEPER_ITEM_TYPE } from '~/constants/minesweeper'
+import { IS_MINESWEEPER_DEV, MINESWEEPER_GAME_STATUS, MINESWEEPER_ITEM_TYPE } from '~/constants/minesweeper'
 
 interface Props {
   row: number
@@ -43,10 +43,15 @@ export default memo(forwardRef<MinesweeperItemRef, Props>((props, ref) => {
     if (leftOrRight === CLICK_BUTTON.RIGHT)
       e.preventDefault()
 
-    const newBlock = minesweeperControllerPC.handleBlockClick(itemState, leftOrRight)
-    if (newBlock) {
-      updateItem(newBlock)
-      updateCallback({ ...newBlock })
+    if (minesweeperControllerPC.gameStatus === MINESWEEPER_GAME_STATUS.NOT_START) {
+      updateCallback(itemState)
+    }
+    else {
+      const newBlock = minesweeperControllerPC.handleBlockClick(itemState, leftOrRight)
+      if (newBlock) {
+        updateItem(newBlock)
+        updateCallback({ ...newBlock })
+      }
     }
   }
 

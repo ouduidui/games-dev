@@ -28,6 +28,11 @@ interface CheckResultType {
   expendItems: MinesweeperItemState[]
 }
 
+interface Step {
+  x: number
+  y: number
+}
+
 export class MinesweeperController {
   private _row = 0
   private _col = 0
@@ -38,6 +43,10 @@ export class MinesweeperController {
 
   get minisweeper() {
     return this._minisweeper
+  }
+
+  get gameStatus() {
+    return this._gameStatus
   }
 
   getMinisweeperItem(row: number, col: number) {
@@ -55,8 +64,15 @@ export class MinesweeperController {
       (_, i) => new Array(col).fill(0).map(
         (_, j) => ({ ...DEFAULT_ITEM_STATE, row: i, col: j })),
     )
-    this._generateMines()
+    return this._minisweeper
+  }
+
+  generateMinesweeper(firstStep: Step): MinesweeperItemState[][] {
+    this._generateMines(firstStep)
     this._generateNumber()
+    const block = this._minisweeper[firstStep.x][firstStep.y]
+    block.type = MINESWEEPER_ITEM_TYPE.NUMBER
+    this._handleZeroBlock(block)
     return this._minisweeper
   }
 
@@ -121,7 +137,7 @@ export class MinesweeperController {
     for (const [x, y] of DIR) {
       const newRow = row + x
       const newCol = col + y
-      if (newRow < 0 || newRow >= this._row || newCol < 0 || newCol >= this._col)
+      if (this._checkIsOutOfBounds(newRow, newCol))
         continue
 
       const block = this._minisweeper[newRow][newCol]
@@ -163,19 +179,37 @@ export class MinesweeperController {
     return Math.round(randomNum)
   }
 
-  private _generateMines() {
+  private _generateMines(firstStep: Step) {
     let _mines = this._mines
+    const around = this._getAroundArea(firstStep)
+
+    const checkIsAround = (row: number, col: number) =>
+      around.some(({ x, y }) => x === row && y === col)
 
     while (_mines > 0) {
-      const _row = this._randomInt(this._row - 1, 0)
-      const _col = this._randomInt(this._col - 1, 0)
-      const block = this._minisweeper[_row][_col]
-      if (block.isMines)
+      const row = this._randomInt(this._row - 1, 0)
+      const col = this._randomInt(this._col - 1, 0)
+      const block = this._minisweeper[row][col]
+      if (block.isMines || checkIsAround(row, col))
         continue
 
       block.isMines = true
       _mines--
     }
+  }
+
+  private _getAroundArea({ x, y }: Step): Step[] {
+    return DIR.map<Step | null>(([dx, dy]) => {
+      const newX = x + dx
+      const newY = y + dy
+      if (this._checkIsOutOfBounds(newX, newY))
+        return null
+      return { x: newX, y: newY }
+    }).filter(v => v) as Step[]
+  }
+
+  private _checkIsOutOfBounds(x: number, y: number) {
+    return x < 0 || x >= this._row || y < 0 || y >= this._col
   }
 
   private _generateNumber() {
@@ -193,7 +227,7 @@ export class MinesweeperController {
     for (const [x, y] of DIR) {
       const newRow = _row + x
       const newCol = _col + y
-      if (newRow < 0 || newRow >= this._row || newCol < 0 || newCol >= this._col)
+      if (this._checkIsOutOfBounds(newRow, newCol))
         continue
 
       const block = this._minisweeper[newRow][newCol]
