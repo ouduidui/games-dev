@@ -22,6 +22,7 @@ const DIR = [
 ]
 
 interface CheckResultType {
+  minisweeper: MinesweeperItemState[][]
   status: MINESWEEPER_GAME_STATUS
   remainMines: number
   needExpend: boolean
@@ -67,13 +68,12 @@ export class MinesweeperController {
     return this._minisweeper
   }
 
-  generateMinesweeper(firstStep: Step): MinesweeperItemState[][] {
+  generateMinesweeper(firstStep: Step): CheckResultType {
     this._generateMines(firstStep)
     this._generateNumber()
     const block = this._minisweeper[firstStep.x][firstStep.y]
     block.type = MINESWEEPER_ITEM_TYPE.NUMBER
-    this._handleZeroBlock(block)
-    return this._minisweeper
+    return this.check(block)
   }
 
   reset() {
@@ -109,7 +109,11 @@ export class MinesweeperController {
       expendItems = this._handleZeroBlock(block)
     }
 
+    if (this._gameStatus !== MINESWEEPER_GAME_STATUS.LOSE && this._checkIsWin())
+      this._gameStatus = MINESWEEPER_GAME_STATUS.WIN
+
     return {
+      minisweeper: this._minisweeper,
       status: this._gameStatus,
       needExpend,
       expendItems,
@@ -124,6 +128,17 @@ export class MinesweeperController {
       : this._handleRightButtonClick(newBlock)
 
     return flag ? newBlock : false
+  }
+
+  private _checkIsWin() {
+    let numberCount = 0
+    this._minisweeper.forEach(
+      row => row.forEach(
+        block => block.type === MINESWEEPER_ITEM_TYPE.NUMBER && numberCount++,
+      ),
+    )
+
+    return numberCount === this._row * this._col - this._mines
   }
 
   private _handleZeroBlock(block: MinesweeperItemState): MinesweeperItemState[] {

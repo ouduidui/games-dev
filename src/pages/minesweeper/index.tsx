@@ -19,32 +19,39 @@ export default () => {
   const itemRefs = useRef<Record<`${number}-${number}`, MinesweeperItemRef | null>>({})
   const timerRef = useRef<TimerRef>(null)
 
-  const updateMinesweeperBox = (newBlock: MinesweeperItemState) => {
-    if (minesweeperControllerPC.gameStatus === MINESWEEPER_GAME_STATUS.NOT_START) {
-      const box = minesweeperControllerPC.generateMinesweeper({ x: newBlock.row, y: newBlock.col })
-      box.forEach((row, i) => {
-        row.forEach((item, j) => {
-          itemRefs.current[`${i}-${j}`]?.updateItem({ ...item })
-        })
+  const handleFirstClick = (newBlock: MinesweeperItemState) => {
+    const result = minesweeperControllerPC.generateMinesweeper({ x: newBlock.row, y: newBlock.col })
+    result.minisweeper.forEach((row, i) => {
+      row.forEach((item, j) => {
+        itemRefs.current[`${i}-${j}`]?.updateItem({ ...item })
       })
+    })
+    return {
+      ...result,
+      needExpend: false,
+    }
+  }
+
+  const updateMinesweeperBox = (newBlock: MinesweeperItemState) => {
+    const { needExpend, expendItems, remainMines: newRemainMines, status }
+      = minesweeperControllerPC.gameStatus === MINESWEEPER_GAME_STATUS.NOT_START
+        ? handleFirstClick(newBlock)
+        : minesweeperControllerPC.check(newBlock)
+
+    if (status === MINESWEEPER_GAME_STATUS.WIN) {
+      alert('win')
+    }
+    else if (status === MINESWEEPER_GAME_STATUS.LOSE) {
+      alert('game over')
     }
     else {
-      const { needExpend, expendItems, remainMines: newRemainMines, status } = minesweeperControllerPC.check(newBlock)
-      if (status === MINESWEEPER_GAME_STATUS.WIN) {
-        alert('win')
+      if (needExpend) {
+        expendItems.forEach((item) => {
+          itemRefs.current[`${item.row}-${item.col}`]?.updateItem(item)
+        })
       }
-      else if (status === MINESWEEPER_GAME_STATUS.LOSE) {
-        alert('game over')
-      }
-      else {
-        if (needExpend) {
-          expendItems.forEach((item) => {
-            itemRefs.current[`${item.row}-${item.col}`]?.updateItem(item)
-          })
-        }
-        if (newRemainMines !== remainMines)
-          setRemainMines(newRemainMines)
-      }
+      if (newRemainMines !== remainMines)
+        setRemainMines(newRemainMines)
     }
   }
 

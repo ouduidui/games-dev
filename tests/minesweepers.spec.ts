@@ -21,7 +21,8 @@ describe('MinesweeperController', () => {
 
   it('should return row ✖️ col arr and has mines', () => {
     minesweeper.init(row, col, mines)
-    const result = minesweeper.generateMinesweeper({ x: 0, y: 0 })
+    minesweeper.generateMinesweeper({ x: 0, y: 0 })
+    const result = minesweeper.minisweeper
     expect(result).toHaveLength(row)
     expect(result[0]).toHaveLength(col)
     expect(result.flat().filter(item => item.isMines).length).toEqual(mines)
@@ -29,7 +30,8 @@ describe('MinesweeperController', () => {
 
   it('should calculate number', () => {
     minesweeper.init(row, col, mines)
-    const result = minesweeper.generateMinesweeper({ x: 0, y: 0 })
+    minesweeper.generateMinesweeper({ x: 0, y: 0 })
+    const result = minesweeper.minisweeper
     result.forEach((r) => {
       r.forEach((item) => {
         if (!item.isMines) {
@@ -52,7 +54,8 @@ describe('MinesweeperController', () => {
   it('should be a zero item in first step', () => {
     minesweeper.init(row, col, mines)
     const firstStep = { x: 0, y: 0 }
-    const result = minesweeper.generateMinesweeper(firstStep)
+    minesweeper.generateMinesweeper(firstStep)
+    const result = minesweeper.minisweeper
     expect(result[firstStep.x][firstStep.y].value).toBe(0)
     expect(result[firstStep.x][firstStep.y].type).toBe(MINESWEEPER_ITEM_TYPE.NUMBER)
     for (const [x, y] of DIR) {
