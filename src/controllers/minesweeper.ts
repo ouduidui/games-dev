@@ -121,6 +121,8 @@ export class MinesweeperController {
   private _handleRightButtonClick(block: MinesweeperItemState) {
     if (block.type === MINESWEEPER_ITEM_TYPE.INITIAL)
       block.type = MINESWEEPER_ITEM_TYPE.FLAG
+    if (block.type === MINESWEEPER_ITEM_TYPE.FLAG)
+      block.type = MINESWEEPER_ITEM_TYPE.INITIAL
   }
 
   private _handleExpandAround(block: MinesweeperItemState) {
