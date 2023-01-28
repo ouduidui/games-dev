@@ -17,6 +17,6 @@ export enum KEY_CODE {
 }
 
 export enum CLICK_BUTTON {
-  LEFT,
-  RIGHT,
+  LEFT = 'LEFT',
+  RIGHT = 'RIGHT',
 }

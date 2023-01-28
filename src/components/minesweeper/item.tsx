@@ -9,7 +9,7 @@ interface Props {
   isInProgress: boolean
 }
 
-export default memo((props: Props) => {
+export default memo(observer((props: Props) => {
   const { minesweeperStore } = useStores()
   const { handleClick } = minesweeperStore
 
@@ -69,7 +69,7 @@ export default memo((props: Props) => {
   }
 
   return renderItem()
-},
+}),
 (prevProps, nextProps) => {
   if (prevProps.isInProgress !== nextProps.isInProgress)
     return false

@@ -40,7 +40,7 @@ export default defineConfig({
         'react-router-dom',
         'mobx',
         {
-          'usehooks-ts': ['useDarkMode'],
+          'usehooks-ts': ['useDarkMode', 'useEventListener', 'useEffectOnce'],
           'mobx': ['configure'],
           'react': ['createContext'],
           'mobx-react-lite': ['observer'],
@@ -50,6 +50,9 @@ export default defineConfig({
           ],
           'dayjs': [
             ['default', 'dayjs'],
+          ],
+          'classnames': [
+            ['default', 'classnames'],
           ],
         },
       ],

@@ -1,5 +1,3 @@
-import classnames from 'classnames'
-import { useEventListener } from 'usehooks-ts'
 import { GAMES_CMD, KEY_CODE } from '~/constants'
 
 export default () => {
@@ -16,6 +14,11 @@ export default () => {
     setActiveIndex(nextIndex)
   }
 
+  const handleOnClick = (ops: (typeof GAMES_CMD)[number]) => {
+    const { id } = ops
+    navigate(`/${id}`)
+  }
+
   useEventListener('keydown', (e: KeyboardEvent) => {
     switch (e.code) {
       case KEY_CODE.ARROW_UP:
@@ -24,15 +27,13 @@ export default () => {
       case KEY_CODE.ARROW_DOWN:
         handleArrowChange(activeIndex + 1)
         break
+      case KEY_CODE.ENTER:
+        handleOnClick(GAMES_CMD[activeIndex])
+        break
       default:
         break
     }
   })
-
-  const handleOnClick = (ops: (typeof GAMES_CMD)[number]) => {
-    const { id } = ops
-    navigate(`/${id}`)
-  }
 
   const renderNav = () => {
     return GAMES_CMD.map((game, idx) => {
