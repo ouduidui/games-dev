@@ -45,7 +45,7 @@ export const loseAnimation = (duration: number) => {
         // since particles fall down, skew start toward the top
         y: (Math.random() * skew) - 0.2,
       },
-      colors: ['#ffffff'],
+      colors: ['#aaa'],
       shapes: ['circle'],
       gravity: randomInRange(0.4, 0.6),
       scalar: randomInRange(0.4, 1),

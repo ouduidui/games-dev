@@ -22,7 +22,7 @@ export default observer(() => {
   }, [status])
 
   return (
-    <div className='mt-10'>
+    <div className='mt-10 select-none'>
       <div className='text-2xl font-200 mb-10'>MINESWEEPER</div>
       {
       status === MINESWEEPER_GAME_STATUS.WAIT_CHOICE

@@ -32,7 +32,7 @@ export default memo(observer((props: Props) => {
     && !(type === MINESWEEPER_ITEM_TYPE.NUMBER && value === 0)
     return (
       <div
-        className={classnames('p-1', 'select-none', 'cursor-pointer', {
+        className={classnames('p-1', 'cursor-pointer', {
           'bg-gray-300 dark:bg-gray-500': isInProgress && type === MINESWEEPER_ITEM_TYPE.INITIAL,
           'hover:bg-gray-400 dark:hover:bg-gray-400': hoverEnabled,
         })}

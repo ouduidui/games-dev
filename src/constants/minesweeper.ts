@@ -1,6 +1,4 @@
-import { IS_DEV } from '.'
-
-export const IS_MINESWEEPER_DEV = IS_DEV && true
+import { t } from '~/i18n'
 
 export enum MINESWEEPER_ITEM_TYPE {
   INITIAL = 'INITIAL',
@@ -25,9 +23,9 @@ export enum MINESWEEPER_DIFFICULTY {
 }
 
 export const MINESWEEPER_DIFFICULTY_LABEL: Record<MINESWEEPER_DIFFICULTY, string> = {
-  [MINESWEEPER_DIFFICULTY.EASY]: 'EASY',
-  [MINESWEEPER_DIFFICULTY.NORMAL]: 'NORMAL',
-  [MINESWEEPER_DIFFICULTY.HARD]: 'HARD',
+  [MINESWEEPER_DIFFICULTY.EASY]: t('minesweeper_difficult_easy'),
+  [MINESWEEPER_DIFFICULTY.NORMAL]: t('minesweeper_difficult_normal'),
+  [MINESWEEPER_DIFFICULTY.HARD]: t('minesweeper_difficult_hard'),
 } as const
 
 export const MINESWEEPER_DIFFICULTY_OPTIONS = {

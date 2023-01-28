@@ -1,6 +1,7 @@
 import MinesweeperItem from './item'
 import { MINESWEEPER_GAME_STATUS } from '~/constants/minesweeper'
 import { useStores } from '~/stores'
+import { t } from '~/i18n'
 
 export default observer(() => {
   const { minesweeperStore, minesweeperTimer } = useStores()
@@ -21,10 +22,10 @@ export default observer(() => {
   const renderResult = () => {
     if (status === MINESWEEPER_GAME_STATUS.LOSE || status === MINESWEEPER_GAME_STATUS.WIN) {
       return (
-        <div className='absolute inset-0 bg-dark/90 z-1'>
+        <div className='absolute inset-0 z-1 bg-light/90 dark:bg-dark/90'>
           <div className='text-2xl font-200 flex justify-center items-center h-full leading-none'>
             {
-              status === MINESWEEPER_GAME_STATUS.WIN ? 'You Win!' : 'You Lose!'
+              status === MINESWEEPER_GAME_STATUS.WIN ? t('win_tip') : t('lose_tip')
             }
           </div>
         </div>
