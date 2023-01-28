@@ -1,6 +1,7 @@
 import { t } from '~/i18n'
 
 export default () => {
+  useDocumentTitle(t('error_tip'))
   const navigate = useNavigate()
   const handleToHomeClick = () => navigate('/')
   return (

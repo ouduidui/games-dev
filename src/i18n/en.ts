@@ -1,4 +1,5 @@
 export default {
+  home_title: 'GAMES',
   minesweeper: 'MINESWEEPER',
   sudoku: 'SUDOKU',
   setting: 'SETTING',
@@ -9,4 +10,5 @@ export default {
   minesweeper_difficult_easy: 'EASY',
   minesweeper_difficult_normal: 'NORMAL',
   minesweeper_difficult_hard: 'HARD',
+  error_tips: '404',
 }

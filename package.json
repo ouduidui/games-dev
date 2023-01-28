@@ -1,12 +1,11 @@
 {
   "name": "games",
-  "version": "0.0.0",
   "description": "",
   "author": "Dewey Ou <oushihao97@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ouduidui/games.git"
+    "url": "git+https://github.com/ouduidui/games-dev"
   },
   "keywords": [],
   "scripts": {

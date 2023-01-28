@@ -42,6 +42,7 @@ declare global {
   const useDarkMode: typeof import('usehooks-ts')['useDarkMode']
   const useDebugValue: typeof import('react')['useDebugValue']
   const useDeferredValue: typeof import('react')['useDeferredValue']
+  const useDocumentTitle: typeof import('usehooks-ts')['useDocumentTitle']
   const useEffect: typeof import('react')['useEffect']
   const useEffectOnce: typeof import('usehooks-ts')['useEffectOnce']
   const useEventListener: typeof import('usehooks-ts')['useEventListener']

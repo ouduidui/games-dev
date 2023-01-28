@@ -40,7 +40,7 @@ export default defineConfig({
         'react-router-dom',
         'mobx',
         {
-          'usehooks-ts': ['useDarkMode', 'useEventListener', 'useEffectOnce'],
+          'usehooks-ts': ['useDarkMode', 'useEventListener', 'useEffectOnce', 'useDocumentTitle'],
           'mobx': ['configure'],
           'react': ['createContext'],
           'mobx-react-lite': ['observer'],

@@ -49,6 +49,10 @@ class MinesweeperStore {
     return this._minesweeperController
   }
 
+  get recordOfCurrentDifficult() {
+    return this.difficult ? this.records[this.difficult] : []
+  }
+
   get info() {
     return this.difficult
       ? MINESWEEPER_DIFFICULTY_OPTIONS[this.difficult]
@@ -154,6 +158,21 @@ class MinesweeperStore {
   private _handleWin() {
     minesweeperTimer.stopTimer()
     this.status = MINESWEEPER_GAME_STATUS.WIN
+
+    if (this.difficult) {
+      const currentRecord = {
+        record: minesweeperTimer.timer.endTime - minesweeperTimer.timer.startTime,
+        createTime: dayjs().valueOf(),
+      }
+      const recordOfCurrentDifficult = [...this.recordOfCurrentDifficult]
+      let idx = recordOfCurrentDifficult.findIndex(r => r.record > currentRecord.record)
+      if (idx < 0)
+        idx = 0
+      recordOfCurrentDifficult.splice(idx, 0, currentRecord)
+      if (recordOfCurrentDifficult.length > 10)
+        recordOfCurrentDifficult.pop()
+      this.records[this.difficult] = recordOfCurrentDifficult
+    }
   }
 
   private handleLose() {

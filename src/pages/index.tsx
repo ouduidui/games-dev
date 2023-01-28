@@ -1,6 +1,8 @@
+import { t } from 'i18next'
 import { GAMES_CMD, KEY_CODE } from '~/constants'
 
 export default () => {
+  useDocumentTitle(t('home_title'))
   const [activeIndex, setActiveIndex] = useState(0)
   const navigate = useNavigate()
 

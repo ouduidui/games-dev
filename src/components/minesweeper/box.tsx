@@ -5,7 +5,7 @@ import { t } from '~/i18n'
 
 export default observer(() => {
   const { minesweeperStore, minesweeperTimer } = useStores()
-  const { minesweeper, restartGame, stopGame, continueGame, remainFlagCount, status } = minesweeperStore
+  const { minesweeper, restartGame, stopGame, continueGame, remainFlagCount, status, recordOfCurrentDifficult } = minesweeperStore
   const { duration } = minesweeperTimer
 
   const handleRestart = () => {
@@ -23,10 +23,13 @@ export default observer(() => {
     if (status === MINESWEEPER_GAME_STATUS.LOSE || status === MINESWEEPER_GAME_STATUS.WIN) {
       return (
         <div className='absolute inset-0 z-1 bg-light/90 dark:bg-dark/90'>
-          <div className='text-2xl font-200 flex justify-center items-center h-full leading-none'>
-            {
-              status === MINESWEEPER_GAME_STATUS.WIN ? t('win_tip') : t('lose_tip')
-            }
+          <div className='font-200 flex flex-col justify-center items-center h-full leading-none'>
+            <div className='text-2xl'>
+              {
+                status === MINESWEEPER_GAME_STATUS.WIN ? t('win_tip') : t('lose_tip')
+              }
+            </div>
+            <div className='text mt-1'>fastest record: {dayjs(recordOfCurrentDifficult[0].record).format('mm:ss')}</div>
           </div>
         </div>
       )

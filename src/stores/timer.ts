@@ -19,7 +19,7 @@ class TimerStore {
     })
   }
 
-  get duration() {
+  get duration(): string {
     const { startTime, endTime } = this.timer
     let duration = endTime - startTime
     if (duration <= 0)
