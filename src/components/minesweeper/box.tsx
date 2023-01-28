@@ -29,7 +29,11 @@ export default observer(() => {
                 status === MINESWEEPER_GAME_STATUS.WIN ? t('win_tip') : t('lose_tip')
               }
             </div>
-            <div className='text mt-1'>fastest record: {dayjs(recordOfCurrentDifficult[0].record).format('mm:ss')}</div>
+            {
+              recordOfCurrentDifficult.length
+                ? <div className='text mt-1'>fastest record: {dayjs(recordOfCurrentDifficult[0].record).format('mm:ss')}</div>
+                : null
+            }
           </div>
         </div>
       )
