@@ -69,9 +69,15 @@ export class MinesweeperController {
   handleBlockClick(x: number, y: number, clickType: CLICK_BUTTON) {
     log('controller handleBlockClick', { x, y, clickType })
     const block = this._minisweeper[x][y]
-    clickType === CLICK_BUTTON.LEFT
-      ? this._handleLeftButtonClick(block)
-      : this._handleRightButtonClick(block)
+
+    if (block.type === MINESWEEPER_ITEM_TYPE.NUMBER) {
+      this._handleExpandAround(block)
+    }
+    else {
+      clickType === CLICK_BUTTON.LEFT
+        ? this._handleLeftButtonClick(block)
+        : this._handleRightButtonClick(block)
+    }
 
     if (block.type === MINESWEEPER_ITEM_TYPE.NUMBER && block.value === 0)
       this._handleZeroBlock(block)
@@ -110,8 +116,6 @@ export class MinesweeperController {
   private _handleLeftButtonClick(block: MinesweeperItemState) {
     if (block.type === MINESWEEPER_ITEM_TYPE.INITIAL || block.type === MINESWEEPER_ITEM_TYPE.FLAG)
       block.type = block.isMines ? MINESWEEPER_ITEM_TYPE.MINE : MINESWEEPER_ITEM_TYPE.NUMBER
-    else if (block.type === MINESWEEPER_ITEM_TYPE.NUMBER)
-      this._handleExpandAround(block)
   }
 
   private _handleRightButtonClick(block: MinesweeperItemState) {
@@ -133,7 +137,7 @@ export class MinesweeperController {
       if (item.type === MINESWEEPER_ITEM_TYPE.INITIAL) {
         item.type = item.isMines ? MINESWEEPER_ITEM_TYPE.MINE : MINESWEEPER_ITEM_TYPE.NUMBER
         if (item.value === 0)
-          this._handleExpandAround(item)
+          this._handleZeroBlock(item)
       }
     })
   }

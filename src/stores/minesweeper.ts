@@ -1,8 +1,10 @@
 import { log } from './../utils/logger'
+import { minesweeperTimer } from './timer'
 import type { CLICK_BUTTON } from '~/constants'
 import { MINESWEEPER_GAME_STATUS, MINESWEEPER_ITEM_TYPE } from '~/constants/minesweeper'
 import { MinesweeperController } from '~/controllers/minesweeper'
 import type { MinesweeperItemState } from '~/types/minesweeper'
+import { PERSIST_NAME, STORAGE } from '~/constants/stores'
 
 class MinesweeperStore {
   _minesweeper: MinesweeperItemState[][] = []
@@ -14,9 +16,9 @@ class MinesweeperStore {
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true })
     makePersistable(this, {
-      name: 'games',
+      name: PERSIST_NAME.MINESWEEPER,
       properties: ['info', '_minesweeper'],
-      storage: window.localStorage,
+      storage: STORAGE,
     })
     this._minesweeperController = new MinesweeperController({
       row: this.info.row,
@@ -39,12 +41,12 @@ class MinesweeperStore {
       this._minesweeper = newMinesweeper
   }
 
-  get remainMines() {
+  get remainFlagCount() {
     const mines = this.info.mines
 
     const flags = this.minesweeper.reduce((cnt, row) => {
       return cnt + row.reduce((rowCnt, item) => {
-        if (item.type === MINESWEEPER_ITEM_TYPE.FLAG && item.isMines)
+        if (item.type === MINESWEEPER_ITEM_TYPE.FLAG)
           rowCnt += 1
         return rowCnt
       }, 0)
@@ -52,11 +54,30 @@ class MinesweeperStore {
     return mines - flags
   }
 
-  init(row: number, col: number, mines: number) {
+  startGame(row: number, col: number, mines: number) {
     this.info = { row, col, mines }
     this.status = MINESWEEPER_GAME_STATUS.NOT_START
-    log('store init', { row, col, mines, status: this.status })
+    minesweeperTimer.resetTimer()
+    log('store startGame', { row, col, mines, status: this.status })
     this.minesweeper = this._minesweeperController.init(row, col, mines)
+  }
+
+  stopGame() {
+    if (this.status !== MINESWEEPER_GAME_STATUS.INPROGRESS)
+      return
+
+    this.status = MINESWEEPER_GAME_STATUS.STOP
+    minesweeperTimer.stopTimer()
+    log('store stopGame', { status: this.status })
+  }
+
+  continueGame() {
+    if (this.status !== MINESWEEPER_GAME_STATUS.STOP)
+      return
+
+    this.status = MINESWEEPER_GAME_STATUS.INPROGRESS
+    minesweeperTimer.continueTimer()
+    log('store continueGame', { status: this.status })
   }
 
   handleClick(x: number, y: number, leftOrRight: CLICK_BUTTON) {
@@ -65,6 +86,7 @@ class MinesweeperStore {
     if (this.status === MINESWEEPER_GAME_STATUS.NOT_START) {
       this.status = MINESWEEPER_GAME_STATUS.INPROGRESS
       this.minesweeper = this._minesweeperController.genMinesweeper(x, y)
+      minesweeperTimer.startTimer()
     }
     else if (this.status === MINESWEEPER_GAME_STATUS.INPROGRESS) {
       this.minesweeper = this._minesweeperController.handleBlockClick(x, y, leftOrRight)

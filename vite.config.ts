@@ -48,6 +48,9 @@ export default defineConfig({
           'i18next': [
             ['default', 'i18n'],
           ],
+          'dayjs': [
+            ['default', 'dayjs'],
+          ],
         },
       ],
       dts: 'src/auto-imports.d.ts',

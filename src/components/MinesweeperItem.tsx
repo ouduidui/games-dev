@@ -65,7 +65,7 @@ export default memo((props: Props) => {
         cls = 'font-mono leading-5 op-70'
     }
 
-    return renderItemContainer(<div className={classnames(commonCls, cls)}>{children}</div>)
+    return renderItemContainer(<div className={classnames(commonCls, cls)}>{isInProgress ? children : null}</div>)
   }
 
   return renderItem()

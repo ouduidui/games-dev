@@ -13,6 +13,7 @@ declare global {
   const configure: typeof import('mobx')['configure']
   const createContext: typeof import('react')['createContext']
   const createRef: typeof import('react')['createRef']
+  const dayjs: typeof import('dayjs')['default']
   const extendObservable: typeof import('mobx')['extendObservable']
   const flow: typeof import('mobx')['flow']
   const flowResult: typeof import('mobx')['flowResult']

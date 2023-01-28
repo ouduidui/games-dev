@@ -11,8 +11,8 @@ export enum MINESWEEPER_ITEM_TYPE {
 
 export enum MINESWEEPER_GAME_STATUS {
   NOT_START,
+  STOP,
   INPROGRESS,
   WIN,
   LOSE,
-  PAUSE,
 }

@@ -10,7 +10,9 @@ specifiers:
   '@types/react-dom': ^18.0.10
   '@unocss/reset': ^0.48.4
   '@vitejs/plugin-react': ^3.0.1
+  canvas-confetti: ^1.6.0
   classnames: ^2.3.2
+  dayjs: ^1.11.7
   eslint: ^8.32.0
   i18next: ^22.4.9
   jsdom: ^21.0.0
@@ -30,6 +32,8 @@ specifiers:
   vitest: ^0.27.3
 
 dependencies:
+  canvas-confetti: 1.6.0
+  dayjs: 1.11.7
   i18next: 22.4.9
   mobx: 6.7.0
   mobx-persist-store: 1.1.3_mobx@6.7.0
@@ -1373,6 +1377,10 @@ packages:
     resolution: {integrity: sha512-fEoga4PrImGcwUUGEol/PoFCSBnSkA9drgdkxXkJLsUBOnJ8rs3zDv6ApqYXGQFOyMPsjh79naWhF4DAxbF8rw==}
     dev: true
 
+  /canvas-confetti/1.6.0:
+    resolution: {integrity: sha512-ej+w/m8Jzpv9Z7W7uJZer14Ke8P2ogsjg4ZMGIuq4iqUOqY2Jq8BNW42iGmNfRwREaaEfFIczLuZZiEVSYNHAA==}
+    dev: false
+
   /chai/4.3.7:
     resolution: {integrity: sha512-HLnAzZ2iupm25PlN0xFreAlBA5zaBSv3og0DdeGA4Ar6h6rJ3A0rolRUKJhSF2V10GZKDgWF/VmAEsNWjCRB+A==}
     engines: {node: '>=4'}
@@ -1546,6 +1554,10 @@ packages:
       whatwg-mimetype: 3.0.0
       whatwg-url: 11.0.0
     dev: true
+
+  /dayjs/1.11.7:
+    resolution: {integrity: sha512-+Yw9U6YO5TQohxLcIkrXBeY73WP3ejHWVvx8XCk3gxvQDCTEmS48ZrSZCKciI7Bhl/uCMyxYtE9UqRILmFphkQ==}
+    dev: false
 
   /debug/3.2.7:
     resolution: {integrity: sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==}

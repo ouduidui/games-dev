@@ -19,6 +19,8 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "canvas-confetti": "^1.6.0",
+    "dayjs": "^1.11.7",
     "i18next": "^22.4.9",
     "mobx": "^6.7.0",
     "mobx-persist-store": "^1.1.3",
