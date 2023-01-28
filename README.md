@@ -1,54 +1,27 @@
-# React Template
+# GAMES 干甚
 
-## Features
+> [https://games.deweyou.me/](https://games.deweyou.me/)
 
-### Frameworks
+## Introduction
 
-- [React18](https://reactjs.org/) - About
-A declarative, efficient, and flexible JavaScript library for building user interfaces.
+First of all, these are games that I like to play, such as Minesweeper, Sudoku and so on.
 
-### UI Frameworks
+Therefore, I want to implement these games myself.
 
-- [UnoCSS](https://github.com/unocss/unocss) - The instant on-demand atomic CSS engine.
+Maybe for learning, maybe for wasting time.
 
-### Icons
+## todos
 
-- [@unocss/preset-icons](https://github.com/unocss/unocss/tree/main/packages/preset-icons) - Use any icons with Pure CSS for UnoCSS.
-  - [Iconify](https://github.com/iconify/iconify) - Universal icon framework.
-  - [icones](https://icones.netlify.app/) - Icon Explorer with Instant searching, powered by Iconify
+> when I have free time...
 
-### Plugins
-
-- [React Router Dom](https://github.com/remix-run/react-router)
-  - [vite-plugin-pages](https://github.com/hannoeru/vite-plugin-pages) - File system based route generator for Vite
-- [Mobx](https://mobx.js.org/README.html) - Simple, scalable state management.
-  -  [mobx-persist-store](https://github.com/quarrant/mobx-persist-store) - Persist and rehydrate observable properties in mobx store.
-- [unplugin-auto-import](https://github.com/antfu/unplugin-auto-import) - Auto import APIs on-demand for Vite, Webpack and Rollup
-- [usehooks-ts](https://usehooks-ts.com/) - React hook library, ready to use, written in Typescript.
-
-### Coding Style
-
-- [Eslint](https://eslint.org/) with [@ouduidui/eslint-config](https://github.com/ouduidui/eslint-config).
-
-### Dev Tools
-
-- [TypeScript](https://www.typescriptlang.org/)
-- [Vitest](https://vitest.dev/) - Unit testing powered by Vite
-- [pnpm](https://pnpm.js.org/) - fast, disk space efficient package manager
-
-## Usage
-
-### Clone to local
-
-```base
-npx degit ouduidui/react-template my-app
-```
-
-### Development
-
-```bash
-# install dependencies
-pnpm i
-# run dev server
-pnpm dev
-```
+- [ ] Minesweeper
+  - [X] PC
+  - [ ] Mobile
+- [ ] Sudoku
+  - [ ] PC
+  - [ ] Mobile
+- [ ] More Games
+- [ ] Setting
+  - [X] Change Theme
+  - [ ] Change Language
+  - [ ] shortcut to the specified page (prevent being discovered when playing at work)
