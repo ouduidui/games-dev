@@ -110,6 +110,8 @@ export class MinesweeperController {
   private _handleLeftButtonClick(block: MinesweeperItemState) {
     if (block.type === MINESWEEPER_ITEM_TYPE.INITIAL || block.type === MINESWEEPER_ITEM_TYPE.FLAG)
       block.type = block.isMines ? MINESWEEPER_ITEM_TYPE.MINE : MINESWEEPER_ITEM_TYPE.NUMBER
+    else if (block.type === MINESWEEPER_ITEM_TYPE.NUMBER)
+      this._handleExpandAround(block)
   }
 
   private _handleRightButtonClick(block: MinesweeperItemState) {
@@ -117,6 +119,23 @@ export class MinesweeperController {
       block.type = MINESWEEPER_ITEM_TYPE.FLAG
     else if (block.type === MINESWEEPER_ITEM_TYPE.FLAG)
       block.type = MINESWEEPER_ITEM_TYPE.INITIAL
+  }
+
+  private _handleExpandAround(block: MinesweeperItemState) {
+    const { row, col } = block
+    const aroundItems = this._getAroundArea({ x: row, y: col })
+      .map(({ x, y }) => this._minisweeper[x][y])
+    const flagCnt = aroundItems.filter(v => v.type === MINESWEEPER_ITEM_TYPE.FLAG).length
+    if (flagCnt !== block.value)
+      return
+
+    aroundItems.forEach((item) => {
+      if (item.type === MINESWEEPER_ITEM_TYPE.INITIAL) {
+        item.type = item.isMines ? MINESWEEPER_ITEM_TYPE.MINE : MINESWEEPER_ITEM_TYPE.NUMBER
+        if (item.value === 0)
+          this._handleExpandAround(item)
+      }
+    })
   }
 
   private _randomInt(max: number, min: number) {
