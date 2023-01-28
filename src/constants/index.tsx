@@ -1,5 +1,7 @@
 import { t } from '~/i18n'
 
+export const IS_DEV = process.env.NODE_ENV === 'development'
+
 export const GAMES_CMD = [
   { id: 'minesweeper', label: t('minesweeper'), iconCls: 'i-arcticons-antimine' },
   { id: 'sudoku', label: t('sudoku'), iconCls: 'i-arcticons-sudokuoss' },

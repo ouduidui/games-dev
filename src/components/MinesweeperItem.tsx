@@ -1,40 +1,19 @@
 import classnames from 'classnames'
 import { CLICK_BUTTON } from '~/constants'
-import { minesweeperControllerPC } from '~/pages/minesweeper'
-import type { MINESWEEPER_ITEM_NUMBER, MinesweeperItemState } from '~/types/minesweeper'
-import { IS_MINESWEEPER_DEV, MINESWEEPER_GAME_STATUS, MINESWEEPER_ITEM_TYPE } from '~/constants/minesweeper'
+import type { MinesweeperItemState } from '~/types/minesweeper'
+import { MINESWEEPER_ITEM_TYPE } from '~/constants/minesweeper'
+import { useStores } from '~/stores'
 
 interface Props {
-  row: number
-  col: number
-  update: (newBlock: MinesweeperItemState) => void
+  item: MinesweeperItemState
   isInProgress: boolean
 }
 
-export interface MinesweeperItemRef {
-  updateItem: (newBlock: MinesweeperItemState) => void
-}
+export default memo((props: Props) => {
+  const { minesweeperStore } = useStores()
+  const { handleClick } = minesweeperStore
 
-type RenderItemFnOption = {
-  type: MINESWEEPER_ITEM_TYPE.NUMBER
-  num: MINESWEEPER_ITEM_NUMBER
-} | {
-  type: MINESWEEPER_ITEM_TYPE.FLAG | MINESWEEPER_ITEM_TYPE.MINE | MINESWEEPER_ITEM_TYPE.INITIAL
-}
-
-export default memo(forwardRef<MinesweeperItemRef, Props>((props, ref) => {
-  const { row, col, isInProgress, update: updateCallback } = props
-  const [itemState, setItemState] = useState(
-    minesweeperControllerPC.getMinisweeperItem(row, col),
-  )
-
-  const updateItem = (newBlock: MinesweeperItemState) => setItemState(newBlock)
-
-  useImperativeHandle(ref, () => {
-    return {
-      updateItem,
-    }
-  })
+  const { isInProgress, item } = props
 
   const handleOnClick = (e: React.MouseEvent, leftOrRight: CLICK_BUTTON) => {
     if (!isInProgress)
@@ -43,24 +22,19 @@ export default memo(forwardRef<MinesweeperItemRef, Props>((props, ref) => {
     if (leftOrRight === CLICK_BUTTON.RIGHT)
       e.preventDefault()
 
-    if (minesweeperControllerPC.gameStatus === MINESWEEPER_GAME_STATUS.NOT_START) {
-      updateCallback(itemState)
-    }
-    else {
-      const newBlock = minesweeperControllerPC.handleBlockClick(itemState, leftOrRight)
-      if (newBlock) {
-        updateItem(newBlock)
-        updateCallback({ ...newBlock })
-      }
-    }
+    handleClick(item.row, item.col, leftOrRight)
   }
 
-  const renderItemContainer = (children: JSX.Element, type: MINESWEEPER_ITEM_TYPE) => {
+  const renderItemContainer = (children: JSX.Element) => {
+    const { type, value } = item
+    const hoverEnabled = isInProgress
+    && type !== MINESWEEPER_ITEM_TYPE.MINE
+    && !(type === MINESWEEPER_ITEM_TYPE.NUMBER && value === 0)
     return (
       <div
         className={classnames('p-1', 'select-none', 'cursor-pointer', {
           'bg-gray-300 dark:bg-gray-500': isInProgress && type === MINESWEEPER_ITEM_TYPE.INITIAL,
-          'hover:bg-gray-400 dark:hover:bg-gray-400': isInProgress && type !== MINESWEEPER_ITEM_TYPE.MINE,
+          'hover:bg-gray-400 dark:hover:bg-gray-400': hoverEnabled,
         })}
         onClick={e => handleOnClick(e, CLICK_BUTTON.LEFT)}
         onContextMenu={e => handleOnClick(e, CLICK_BUTTON.RIGHT)}
@@ -70,8 +44,8 @@ export default memo(forwardRef<MinesweeperItemRef, Props>((props, ref) => {
     )
   }
 
-  const renderItem = (ops: RenderItemFnOption) => {
-    const { type } = ops
+  const renderItem = () => {
+    const { type, value } = item
     const commonCls = classnames('text w-1.25rem h-1.25rem', {
       'op-0': !isInProgress,
     })
@@ -87,15 +61,20 @@ export default memo(forwardRef<MinesweeperItemRef, Props>((props, ref) => {
       case MINESWEEPER_ITEM_TYPE.INITIAL:
         break
       case MINESWEEPER_ITEM_TYPE.NUMBER:
-        ops.num !== 0 && (children = <>{ops.num}</>)
+        value !== 0 && (children = <>{value}</>)
         cls = 'font-mono leading-5 op-70'
     }
 
-    return renderItemContainer(<div className={classnames(commonCls, cls)}>{children}</div>, type)
+    return renderItemContainer(<div className={classnames(commonCls, cls)}>{children}</div>)
   }
 
-  if (IS_MINESWEEPER_DEV)
-    return renderItem({ type: itemState.isMines ? MINESWEEPER_ITEM_TYPE.MINE : MINESWEEPER_ITEM_TYPE.NUMBER, num: itemState.value })
-
-  return renderItem({ type: itemState.type, num: itemState.value })
-}))
+  return renderItem()
+},
+(prevProps, nextProps) => {
+  if (prevProps.isInProgress !== nextProps.isInProgress)
+    return false
+  if (prevProps.item.type !== nextProps.item.type)
+    return false
+  return true
+},
+)

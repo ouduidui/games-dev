@@ -22,6 +22,7 @@ declare global {
   const lazy: typeof import('react')['lazy']
   const makeAutoObservable: typeof import('mobx')['makeAutoObservable']
   const makeObservable: typeof import('mobx')['makeObservable']
+  const makePersistable: typeof import('mobx-persist-store')['makePersistable']
   const memo: typeof import('react')['memo']
   const observable: typeof import('mobx')['observable']
   const observe: typeof import('mobx')['observe']

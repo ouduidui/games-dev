@@ -44,7 +44,7 @@ export default defineConfig({
           'mobx': ['configure'],
           'react': ['createContext'],
           'mobx-react-lite': ['observer'],
-
+          'mobx-persist-store': ['makePersistable'],
           'i18next': [
             ['default', 'i18n'],
           ],
