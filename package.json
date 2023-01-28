@@ -1,12 +1,11 @@
 {
   "name": "games",
-  "version": "0.0.0",
   "description": "",
   "author": "Dewey Ou <oushihao97@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ouduidui/games.git"
+    "url": "git+https://github.com/ouduidui/games-dev"
   },
   "keywords": [],
   "scripts": {
@@ -19,6 +18,8 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "canvas-confetti": "^1.6.0",
+    "dayjs": "^1.11.7",
     "i18next": "^22.4.9",
     "mobx": "^6.7.0",
     "mobx-persist-store": "^1.1.3",
@@ -32,6 +33,8 @@
     "@antfu/eslint-config": "^0.34.1",
     "@iconify-json/arcticons": "^1.1.39",
     "@iconify-json/carbon": "^1.1.14",
+    "@iconify-json/mdi": "^1.1.44",
+    "@types/canvas-confetti": "^1.6.0",
     "@types/node": "^18.11.18",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",

@@ -1,12 +1,10 @@
 import type { InitOptions } from 'i18next'
-import i18n from 'i18next'
 import en from './en'
 import cn from './cn'
+import setting from '~/stores/setting'
 
 export const __TEXT__ = i18n.t
 export const t = i18n.t
-
-const DEFAULT_LANGUAGE = 'en'
 
 const i18nOptions: InitOptions = {
   resources: {
@@ -17,7 +15,7 @@ const i18nOptions: InitOptions = {
       translation: cn,
     },
   },
-  lng: DEFAULT_LANGUAGE,
+  lng: setting.language,
 }
 
 i18n.init(i18nOptions)

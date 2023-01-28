@@ -39,10 +39,25 @@ export default defineConfig({
         'react',
         'react-router-dom',
         'mobx',
-        { 'usehooks-ts': ['useCounter', 'useDarkMode'] },
-        { mobx: ['configure'] },
-        { react: ['createContext'] },
-        { 'mobx-react-lite': ['observer'] },
+        {
+          'usehooks-ts': ['useDarkMode', 'useEventListener', 'useEffectOnce', 'useDocumentTitle'],
+          'mobx': ['configure'],
+          'react': ['createContext'],
+          'mobx-react-lite': ['observer'],
+          'mobx-persist-store': ['makePersistable'],
+          'i18next': [
+            ['default', 'i18n'],
+          ],
+          'dayjs': [
+            ['default', 'dayjs'],
+          ],
+          'classnames': [
+            ['default', 'classnames'],
+          ],
+          'canvas-confetti': [
+            ['default', 'confetti'],
+          ],
+        },
       ],
       dts: 'src/auto-imports.d.ts',
     }),

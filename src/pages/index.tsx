@@ -1,9 +1,10 @@
-import classnames from 'classnames'
-import { useEventListener } from 'usehooks-ts'
+import { t } from 'i18next'
 import { GAMES_CMD, KEY_CODE } from '~/constants'
 
 export default () => {
+  useDocumentTitle(t('home_title'))
   const [activeIndex, setActiveIndex] = useState(0)
+  const navigate = useNavigate()
 
   const handleArrowChange = (nextIndex: number) => {
     const lastIndex = GAMES_CMD.length - 1
@@ -15,6 +16,11 @@ export default () => {
     setActiveIndex(nextIndex)
   }
 
+  const handleOnClick = (ops: (typeof GAMES_CMD)[number]) => {
+    const { id } = ops
+    navigate(`/${id}`)
+  }
+
   useEventListener('keydown', (e: KeyboardEvent) => {
     switch (e.code) {
       case KEY_CODE.ARROW_UP:
@@ -23,21 +29,22 @@ export default () => {
       case KEY_CODE.ARROW_DOWN:
         handleArrowChange(activeIndex + 1)
         break
+      case KEY_CODE.ENTER:
+        handleOnClick(GAMES_CMD[activeIndex])
+        break
       default:
         break
     }
   })
-
-  const handleOnClick = () => {}
 
   const renderNav = () => {
     return GAMES_CMD.map((game, idx) => {
       const isActive = activeIndex === idx
       return (
         <div
-          key={idx}
+          key={game.id}
           onMouseEnter={() => setActiveIndex(idx)}
-          onClick={handleOnClick}
+          onClick={() => handleOnClick(game)}
           className={classnames('flex', 'items-center', 'justify-center', 'cursor-pointer', 'mb-3', {
             'op-70': !isActive,
             'op-100': isActive,
