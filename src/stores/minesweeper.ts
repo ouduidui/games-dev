@@ -18,7 +18,7 @@ type MinesweeperRecords = Record<MINESWEEPER_DIFFICULTY, {
 
 class MinesweeperStore {
   _minesweeper: MinesweeperItemState[][] = []
-  difficult: MINESWEEPER_DIFFICULTY | '' = ''
+  difficult: MINESWEEPER_DIFFICULTY = MINESWEEPER_DIFFICULTY.EASY
   status: MINESWEEPER_GAME_STATUS = MINESWEEPER_GAME_STATUS.WAIT_CHOICE
   records: MinesweeperRecords = {
     [MINESWEEPER_DIFFICULTY.EASY]: [],
@@ -50,7 +50,7 @@ class MinesweeperStore {
   }
 
   get recordOfCurrentDifficult() {
-    return this.difficult ? this.records[this.difficult] : []
+    return this.records[this.difficult]
   }
 
   get info() {
@@ -90,7 +90,6 @@ class MinesweeperStore {
   }
 
   restartGame() {
-    this.difficult = ''
     this.status = MINESWEEPER_GAME_STATUS.WAIT_CHOICE
     this.minesweeper = []
     minesweeperTimer.resetTimer()

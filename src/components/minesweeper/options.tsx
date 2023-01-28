@@ -4,8 +4,8 @@ import { useStores } from '~/stores'
 
 export default () => {
   const { minesweeperStore } = useStores()
-  const { startGame } = minesweeperStore
-  const [activeKey, setActiveKey] = useState<MINESWEEPER_DIFFICULTY>(MINESWEEPER_DIFFICULTY.EASY)
+  const { startGame, difficult } = minesweeperStore
+  const [activeKey, setActiveKey] = useState<MINESWEEPER_DIFFICULTY>(difficult || MINESWEEPER_DIFFICULTY.EASY)
   const options = Object.keys(MINESWEEPER_DIFFICULTY_LABEL) as MINESWEEPER_DIFFICULTY[]
 
   const handleArrowChange = (changed: 1 | -1) => {
