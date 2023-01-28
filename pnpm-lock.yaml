@@ -5,6 +5,7 @@ specifiers:
   '@iconify-json/arcticons': ^1.1.39
   '@iconify-json/carbon': ^1.1.14
   '@iconify-json/mdi': ^1.1.44
+  '@types/canvas-confetti': ^1.6.0
   '@types/node': ^18.11.18
   '@types/react': ^18.0.27
   '@types/react-dom': ^18.0.10
@@ -48,6 +49,7 @@ devDependencies:
   '@iconify-json/arcticons': 1.1.39
   '@iconify-json/carbon': 1.1.14
   '@iconify-json/mdi': 1.1.44
+  '@types/canvas-confetti': 1.6.0
   '@types/node': 18.11.18
   '@types/react': 18.0.27
   '@types/react-dom': 18.0.10
@@ -784,6 +786,10 @@ packages:
   /@tootallnate/once/2.0.0:
     resolution: {integrity: sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==}
     engines: {node: '>= 10'}
+    dev: true
+
+  /@types/canvas-confetti/1.6.0:
+    resolution: {integrity: sha512-Yq6rIccwcco0TLD5SMUrIM7Fk7Fe/C0jmNRxJJCLtAF6gebDkPuUjK5EHedxecm69Pi/aA+It39Ux4OHmFhjRw==}
     dev: true
 
   /@types/chai-subset/1.3.3:

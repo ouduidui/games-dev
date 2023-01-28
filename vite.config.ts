@@ -54,6 +54,9 @@ export default defineConfig({
           'classnames': [
             ['default', 'classnames'],
           ],
+          'canvas-confetti': [
+            ['default', 'confetti'],
+          ],
         },
       ],
       dts: 'src/auto-imports.d.ts',

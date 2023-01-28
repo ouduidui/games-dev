@@ -11,6 +11,7 @@ declare global {
   const autorun: typeof import('mobx')['autorun']
   const classnames: typeof import('classnames')['default']
   const computed: typeof import('mobx')['computed']
+  const confetti: typeof import('canvas-confetti')['default']
   const configure: typeof import('mobx')['configure']
   const createContext: typeof import('react')['createContext']
   const createRef: typeof import('react')['createRef']

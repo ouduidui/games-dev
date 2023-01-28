@@ -18,8 +18,24 @@ export default observer(() => {
       stopGame()
   }
 
+  const renderResult = () => {
+    if (status === MINESWEEPER_GAME_STATUS.LOSE || status === MINESWEEPER_GAME_STATUS.WIN) {
+      return (
+        <div className='absolute inset-0 bg-dark/90 z-1'>
+          <div className='text-2xl font-200 flex justify-center items-center h-full leading-none'>
+            {
+              status === MINESWEEPER_GAME_STATUS.WIN ? 'You Win!' : 'You Lose!'
+            }
+          </div>
+        </div>
+      )
+    }
+    return null
+  }
+
   const renderMinesweeperBox = () => (
-    <div className="b-1">
+    <div className="b-1 relative">
+      {renderResult()}
       {minesweeper.map((row, i) => (
         <div key={`row_${i}`} className="flex">
           {row.map((item, j) => (
