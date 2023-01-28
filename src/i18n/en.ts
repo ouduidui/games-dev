@@ -11,4 +11,5 @@ export default {
   minesweeper_difficult_normal: 'NORMAL',
   minesweeper_difficult_hard: 'HARD',
   error_tips: '404',
+  fastest_record: 'fastest record',
 }

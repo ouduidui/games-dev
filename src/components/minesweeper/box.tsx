@@ -31,7 +31,7 @@ export default observer(() => {
             </div>
             {
               recordOfCurrentDifficult.length
-                ? <div className='text mt-1'>fastest record: {dayjs(recordOfCurrentDifficult[0].record).format('mm:ss')}</div>
+                ? <div className='text mt-1'>{t('fastest_record')}: {dayjs(recordOfCurrentDifficult[0].record).format('mm:ss')}</div>
                 : null
             }
           </div>
